@@ -106,8 +106,6 @@ protected:
 
     virtual void updateFromTopology();
     void addTetraToDraw(const Tetrahedron& t, std::vector<sofa::type::Vec3>& tetraVertices, std::vector<sofa::type::Vec3>& normalVertices);
-
-    void drawCollisionModel(const core::visual::VisualParams* vparams) override;
 public:
     void init() override;
 
@@ -120,6 +118,8 @@ public:
     //virtual void computeContinuousBoundingTree(double dt, int maxDepth=0);
 
     void draw(const core::visual::VisualParams*, sofa::Index index) override;
+
+    void draw(const core::visual::VisualParams* vparams) override;
 
     core::behavior::MechanicalState<defaulttype::Vec3Types>* getMechanicalState() { return mstate; }
 

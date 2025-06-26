@@ -72,6 +72,7 @@ public:
     void computeBoundingTree(int maxDepth) override;
 
     void draw(const core::visual::VisualParams*, sofa::Index index) override;
+    void draw(const core::visual::VisualParams* vparams) override;
 
     core::behavior::MechanicalState<defaulttype::Vec3Types>* getMechanicalState() { return mstate; }
     // ----------------------------

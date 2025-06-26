@@ -177,23 +177,28 @@ void CapsuleCollisionModel<DataTypes>::draw(const core::visual::VisualParams* vp
 }
 
 template<class DataTypes>
-void CapsuleCollisionModel<DataTypes>::drawCollisionModel(const core::visual::VisualParams* vparams)
+void CapsuleCollisionModel<DataTypes>::draw(const core::visual::VisualParams* vparams)
 {
     auto df = sofa::core::visual::visualparams::getDisplayFlags(vparams);
     auto dt = sofa::core::visual::visualparams::getDrawTool(vparams);
-    sofa::type::RGBAColor col4f(getColor4f()[0], getColor4f()[1], getColor4f()[2], getColor4f()[3]);
-    dt->setPolygonMode(0, df.getShowWireFrame());  // maybe ??
-    dt->setLightingEnabled(true);                  // Enable lightning
-
-    // Check topological modifications
-    // const int npoints = _mstate->getSize()/2;
-
-    for (sofa::Size i = 0; i < size; i++)
+    if (df.getShowCollisionModels())
     {
-        dt->drawCapsule(point1(i), point2(i), (float)radius(i), col4f);
+        sofa::type::RGBAColor col4f(getColor4f()[0], getColor4f()[1], getColor4f()[2], getColor4f()[3]);
+        dt->setPolygonMode(0,df.getShowWireFrame());//maybe ??
+        dt->setLightingEnabled(true); //Enable lightning
+
+        // Check topological modifications
+        //const int npoints = _mstate->getSize()/2;
+
+        for (sofa::Size i=0; i<size; i++){
+            dt->drawCapsule(point1(i),point2(i),(float)radius(i),col4f);
+        }
+
+        dt->setLightingEnabled(false); //Disable lightning
     }
 
-    dt->setLightingEnabled(false);  // Disable lightning
+    if (getPrevious()!=nullptr && df.getShowBoundingCollisionModels())
+        getPrevious()->draw(vparams);
 
     dt->setPolygonMode(0,false);
 }

@@ -161,9 +161,10 @@ void TetrahedronCollisionModel::draw(const core::visual::VisualParams* vparams, 
 
 }
 
-void TetrahedronCollisionModel::drawCollisionModel(const core::visual::VisualParams* vparams)
+void TetrahedronCollisionModel::draw(const core::visual::VisualParams* vparams)
 {
-    if (mstate && m_topology)
+    const auto stateLifeCycle = vparams->drawTool()->makeStateLifeCycle();
+    if (mstate && m_topology && vparams->displayFlags().getShowCollisionModels())
     {
         if (vparams->displayFlags().getShowWireFrame())
             vparams->drawTool()->setPolygonMode(0, true);
@@ -191,6 +192,10 @@ void TetrahedronCollisionModel::drawCollisionModel(const core::visual::VisualPar
         if (vparams->displayFlags().getShowWireFrame())
             vparams->drawTool()->setPolygonMode(0, false);
     }
+    if (getPrevious()!=nullptr && vparams->displayFlags().getShowBoundingCollisionModels())
+        getPrevious()->draw(vparams);
+
+
 }
 
 void TetrahedronCollisionModel::computeBoundingTree(int maxDepth)

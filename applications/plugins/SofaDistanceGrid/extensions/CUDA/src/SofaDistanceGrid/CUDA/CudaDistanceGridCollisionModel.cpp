@@ -649,20 +649,26 @@ void CudaRigidDistanceGridCollisionModel::updateGrid()
 {
 }
 
-void CudaRigidDistanceGridCollisionModel::drawCollisionModel(const core::visual::VisualParams* vparams)
+void CudaRigidDistanceGridCollisionModel::draw(const core::visual::VisualParams* vparams)
 {
-    if (vparams->displayFlags().getShowWireFrame())
-        glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
-    glDisable(GL_LIGHTING);
-    glColor4fv(getColor4f());
-    glPointSize(3);
-    for (unsigned int i = 0; i < elems.size(); i++)
+    if (!isActive()) return;
+    if (vparams->displayFlags().getShowCollisionModels())
     {
-        draw(vparams, i);
+        if (vparams->displayFlags().getShowWireFrame())
+            glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+        glDisable(GL_LIGHTING);
+        glColor4fv(getColor4f());
+        glPointSize(3);
+        for (unsigned int i=0; i<elems.size(); i++)
+        {
+            draw(vparams,i);
+        }
+        glPointSize(1);
+        if (vparams->displayFlags().getShowWireFrame())
+            glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
     }
-    glPointSize(1);
-    if (vparams->displayFlags().getShowWireFrame())
-        glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+    if (getPrevious()!=NULL)
+        getPrevious()->draw(vparams);
 }
 
 void CudaRigidDistanceGridCollisionModel::draw(const core::visual::VisualParams* , Index index)

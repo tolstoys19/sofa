@@ -474,8 +474,6 @@ protected:
 
     void updateGrid();
 
-    void drawCollisionModel(const core::visual::VisualParams*) override;
-
 public:
     // Input data parameters
     sofa::core::objectmodel::DataFileName fileCudaRigidDistanceGrid;
@@ -554,6 +552,8 @@ public:
     void computeBoundingTree(int maxDepth=0) override;
 
     void draw(const core::visual::VisualParams*, Index index) override;
+
+    void draw(const core::visual::VisualParams*) override;
 };
 
 inline CudaRigidDistanceGridCollisionElement::CudaRigidDistanceGridCollisionElement(CudaRigidDistanceGridCollisionModel* model, Index index)

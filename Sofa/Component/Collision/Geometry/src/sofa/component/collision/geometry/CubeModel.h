@@ -88,8 +88,6 @@ public:
     friend class Cube;
 protected:
     CubeCollisionModel();
-
-    void drawCollisionModel(const core::visual::VisualParams* vparams) override;
 public:
     void resize(sofa::Size size) override;
 
@@ -139,6 +137,8 @@ public:
     std::pair<core::CollisionElementIterator,core::CollisionElementIterator> getExternalChildren(sofa::Index index) const override;
 
     bool isLeaf(sofa::Index index ) const override;
+
+    void draw(const core::visual::VisualParams* vparams) override;
 
     sofa::Index addCube(Cube subcellsBegin, Cube subcellsEnd);
     void updateCube(sofa::Index index);

@@ -105,9 +105,6 @@ protected:
     CapsuleCollisionModel(core::behavior::MechanicalState<TDataTypes>* mstate );
 
     ~CapsuleCollisionModel() override;
-
-    void drawCollisionModel(const core::visual::VisualParams* vparams) override;
-
 public:
     void init() override;
 
@@ -120,6 +117,9 @@ public:
     //virtual void computeContinuousBoundingTree(SReal dt, int maxDepth=0);
 
     void draw(const core::visual::VisualParams* vparams, Index index) override;
+
+    void draw(const core::visual::VisualParams* vparams) override;
+
 
     core::behavior::MechanicalState<DataTypes>* getMechanicalState() { return _mstate; }
 
